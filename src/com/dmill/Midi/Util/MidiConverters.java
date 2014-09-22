@@ -1,6 +1,8 @@
-package com.dmill.Util;
+package com.dmill.Midi.Util;
 
-public class UtilityFunctions {
+import com.dmill.Util.UtilityFunctions;
+
+public class MidiConverters {
 
     public static int convertStringToMidi(String beat){
         int pitch = 1;
@@ -21,28 +23,25 @@ public class UtilityFunctions {
                 System.out.println("hit ride");
                 pitch = 49;
                 break;
+            case "open-hat":
+                pitch = 46;
+                break;
+            case "hi-tom":
+                pitch = 45;
+                break;
+            case "low-tom":
+                pitch = 43;
+                break;
             default:
                 pitch = 1;
         }
         return pitch;
     }
 
-    public static int allowAbleTicks(int tick){
-        int returnTick;
-        int[] allowableTicks = {1, 2, 4, 6, 8, 10, 12, 16, 20, 24, 32};
-        if (arraySearch(allowableTicks, tick)){
-            returnTick = tick;
-        } else {
-            returnTick = 16;
-        }
-
-        return returnTick;
-    }
-
     public static int convertTicksToMidi(int tick){
         int returnTick;
         int[] allowableTicks = {1, 2, 4, 6, 8, 10, 12, 16, 20, 24, 32};
-        if (arraySearch(allowableTicks, tick)){
+        if (UtilityFunctions.arraySearch(allowableTicks, tick)){
             returnTick = 1920 / tick;
         } else {
             returnTick = 120;
@@ -51,14 +50,8 @@ public class UtilityFunctions {
         return returnTick;
     }
 
-    public static boolean arraySearch(int[] searchableArray, int number){
-        for (int num : searchableArray){
-            if (num == number){
-                return true;
-            } else {
-                return false;
-            }
-        }
-        return false;
+    public static void convertNotesToMidi(String key, int octave){
+
     }
+
 }
