@@ -1,19 +1,22 @@
 package com.dmill.Midi.Util;
 
 
+import com.dmill.Algorithms.Pads.Tools.Chords;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class MajorScales {
 
     //simple facade patternish method
-    public List<List<Integer>> chords(String key, int octave, List<List<Integer>> notes){
+    public List<Chords> chords(String key, int octave, List<Chords> notes){
         int finalKey = convertKey(key);
         int finalOctave = octaveSetup(octave, finalKey);
         return convertChords(notes,finalOctave);
     }
 
     //todo add sharps
-    public static int convertKey(String key){
+    private static int convertKey(String key){
         int returnKey;
         switch (key){
             case "a":
@@ -45,7 +48,7 @@ public class MajorScales {
         return returnKey;
     }
 
-    public static int octaveSetup(int octave, int key){
+    private static int octaveSetup(int octave, int key){
         if (octave < -5 || octave > 5){
             octave = 0;
         }
@@ -53,20 +56,23 @@ public class MajorScales {
         return tempOctave + key;
     }
 
-    public static List<List<Integer>> convertChords(List<List<Integer>> notes, int octaveKey){
-        //outer loop
-        for (List<Integer> note : notes){
-            //inner loop
-            for (int i = 0; i < note.size(); i++){
-                note.set(i, majorKeySetup(note.get(i), octaveKey));
+    private static List<Chords> convertChords(List<Chords> chords, int octaveKey){
+
+        for (Chords chord : chords){
+            List<Integer> temp = new ArrayList<>();
+            for (int i = 0; i < chord.getChord().size(); i++){
+                temp.add(majorKeySetup(chord.getChord().get(i), octaveKey));
             }
+            System.out.println(temp);
+            chord.setChord(temp);
         }
-        return notes;
+
+        return chords;
     }
 
     //algorithm is 0+2+2+1+2+2+2
     //todo refactor this
-    public static int majorKeySetup(int note, int key){
+    private static int majorKeySetup(int note, int key){
         int majorNote = key;
         switch (note){
             case 1:

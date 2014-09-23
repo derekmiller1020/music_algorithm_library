@@ -1,7 +1,6 @@
 package com.dmill.Algorithms.Drums;
 
-import com.dmill.Algorithms.Drums.BeatAlgorithms;
-import com.dmill.Algorithms.Util.CollectionShuffle;
+import com.dmill.Algorithms.Drums.Tools.CollectionShuffle;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -10,9 +9,6 @@ import java.util.Date;
     Simple Algorithm that only uses kick, snare, and closed high-hat. It uses the Java Collections shuffle algorithm.
  */
 public class ShuffleAlgorithm extends BeatAlgorithms {
-
-    //Utility algorithm used for shuffling - used for this class
-    private CollectionShuffle collectionShuffle = new CollectionShuffle();
 
     //calls parent class and by default uses 16 ticks, if the user has not specified how many ticks per staff they want
     protected ShuffleAlgorithm(Builder builder){
@@ -38,27 +34,33 @@ public class ShuffleAlgorithm extends BeatAlgorithms {
     }
 
     //this setup function gives the user the ability to have as many measures as they want, plus the amount of repeats
-    public void setUp(){
+    protected void setUp(){
         super.clearDrumSet();
 
         //add the arraylist to each drum - drumShuffle takes 4 arguments
-        kick.addAll(collectionShuffle.drumShuffle(numberOfKicks, ticksPerStaff, measures, repeats));
-        snare.addAll(collectionShuffle.drumShuffle(numberOfSnares, ticksPerStaff, measures, repeats));
-        closedHat.addAll(collectionShuffle.drumShuffle(numberOfClosedHats, ticksPerStaff, measures, repeats));
+        kick.addAll(new CollectionShuffle(numberOfKicks, ticksPerStaff).complete(measures, repeats));
+        snare.addAll(new CollectionShuffle(numberOfSnares, ticksPerStaff).complete(measures, repeats));
+        closedHat.addAll(new CollectionShuffle(numberOfClosedHats, ticksPerStaff).complete(measures, repeats));
     }
 
-    //take the set up drums and complete the drumset
-    public void execute(){
+    protected void addToSet(){
         drumSet.put("kick", kick);
         drumSet.put("snare", snare);
         drumSet.put("closed-hat", closedHat);
     }
 
     //export the bad boy to midi
-    public void toMidi(){
+    protected void toMidi(){
         String todaysDate = new SimpleDateFormat("ddMMyyyy").format(new Date());
         String fileName = "shuffleAlgorithm_" + todaysDate;
         super.toMidi(fileName);
+    }
+
+    //facade pattern for end user
+    public void execute(){
+        setUp();
+        addToSet();
+        toMidi();
     }
 
 }

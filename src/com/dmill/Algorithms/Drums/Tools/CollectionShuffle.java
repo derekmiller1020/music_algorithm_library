@@ -1,4 +1,4 @@
-package com.dmill.Algorithms.Util;
+package com.dmill.Algorithms.Drums.Tools;
 
 import java.util.*;
 
@@ -7,15 +7,21 @@ public class CollectionShuffle {
 
     final private static String hit = "hit";
     final private static String space = "space";
+    private int ticksPerStaff;
+    private int drumBeats;
 
+    public CollectionShuffle(int drumBeats, int ticksPerStaff){
+        this.drumBeats = drumBeats;
+        this.ticksPerStaff = ticksPerStaff;
+    }
 
-    public List<String> drumShuffle(int drumBeats, int ticksPerstaff, int measures, int repeat){
+    public List<String> complete(int measures, int repeat){
         List<String> shuffleList = new ArrayList<>();
         List<String> temp = new ArrayList<>();
         for (int i = 0; i < measures; i++){
-            temp.addAll(shuffle(drumBeats, ticksPerstaff));
+            temp.addAll(shuffle(drumBeats, ticksPerStaff));
         }
-        for (int x = 0; x < repeat; x++){
+        for (int x = -1; x < repeat; x++){
             shuffleList.addAll(temp);
         }
         return shuffleList;
@@ -28,15 +34,7 @@ public class CollectionShuffle {
                 drumBeats = ticksPerStaff;
             }
 
-            int spaces = ticksPerStaff - drumBeats;
-            for (int x = 0; x < ticksPerStaff; x++){
-                if (x < spaces){
-                    measure.add(space);
-                }
-                if (x >= spaces){
-                    measure.add(hit);
-                }
-            }
+            measure = DrumUtilFunctions.addOrderedDrums(ticksPerStaff, drumBeats);
             Collections.shuffle(measure);
 
         } catch (Exception e){

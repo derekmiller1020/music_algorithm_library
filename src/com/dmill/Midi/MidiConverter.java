@@ -1,5 +1,6 @@
 package com.dmill.Midi;
 
+import com.dmill.Algorithms.Pads.Tools.Chords;
 import com.dmill.Midi.Util.MajorScales;
 import com.dmill.Midi.Util.MidiConverters;
 import com.leff.midi.MidiFile;
@@ -50,18 +51,17 @@ public class MidiConverter {
         }
     }
 
-    public void convertChords(List<List<Integer>> fullChords, String key, int octave){
+    public void convertChords(List<Chords> fullChords, String key, int octave){
         int pitch;
-        int tick = MidiConverters.convertTicksToMidi(1) * 2;
         int channel = 0, velocity = 100;
         fullChords = new MajorScales().chords(key, octave, fullChords);
-        System.out.println(fullChords);
 
         //outer loop
         for(int i = 0; i < fullChords.size(); i++){
             //inner loop
-            for (int x = 0; x < fullChords.get(i).size(); x++){
-                pitch = fullChords.get(i).get(x);
+            int tick = MidiConverters.convertNoteLengthToMidi(fullChords.get(i).getChordLength());
+            for (int x = 0; x < fullChords.get(i).getChord().size(); x++){
+                pitch = fullChords.get(i).getChord().get(x);
                 try{
                     noteTrack.insertNote(channel, pitch, velocity, i*tick, tick);
                     System.out.println(pitch + " " + tick + " " + i*tick);

@@ -20,13 +20,14 @@ public class MidiConverters {
                 pitch = 42;
                 break;
             case "ride":
-                System.out.println("hit ride");
+
                 pitch = 49;
                 break;
             case "open-hat":
                 pitch = 46;
                 break;
             case "hi-tom":
+                System.out.println("hit tom");
                 pitch = 45;
                 break;
             case "low-tom":
@@ -50,8 +51,9 @@ public class MidiConverters {
         return returnTick;
     }
 
-    public static void convertNotesToMidi(String key, int octave){
-
+    public static int convertNoteLengthToMidi(int note){
+        return note * 480;
     }
+
 
 }

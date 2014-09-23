@@ -1,12 +1,15 @@
 package com.dmill.Util;
 
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class UtilityFunctions {
 
     public static int allowAbleTicks(int tick){
         int returnTick;
-        int[] allowableTicks = {1, 2, 4, 6, 8, 10, 12, 16, 20, 24, 32};
+        int[] allowableTicks = {1, 2, 4, 6, 8, 10, 12, 16, 20, 24, 32, 64};
         if (arraySearch(allowableTicks, tick)){
             returnTick = tick;
         } else {
@@ -23,15 +26,6 @@ public class UtilityFunctions {
             }
         }
         return false;
-    }
-
-    public static boolean tickCatcher(int ticksPerStaff, int[]drumBeats){
-        for (int drum : drumBeats){
-            if (drum > ticksPerStaff){
-                return false;
-            }
-        }
-        return true;
     }
 
     public static boolean allowableKeys(String key){
@@ -59,4 +53,21 @@ public class UtilityFunctions {
             return true;
         }
     }
+
+    // Implementing Fisher–Yates shuffle
+    public static List<Integer> shuffleArray(List<Integer> notes)
+    {
+        Random random = new Random();
+        for (int i = notes.size() - 1; i > 0; i--)
+        {
+            int index = random.nextInt(i + 1);
+            // Simple swap
+            int temp = notes.get(index);
+            notes.set(index, notes.get(i));
+            notes.set(i, temp);
+        }
+        return notes;
+    }
+
+
 }

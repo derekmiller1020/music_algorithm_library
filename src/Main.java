@@ -1,30 +1,33 @@
 import com.dmill.Algorithms.Drums.BeatAlgorithms;
+import com.dmill.Algorithms.Pads.PadsAlgorithm;
 
 public class Main {
 
     public static void main(String args[]){
-
+        /*
         try{
+
             BeatAlgorithms ba = new BeatAlgorithms.Builder()
-                    .setMeasures(2)
-                    .setRepeats(2)
-                    .setNumberOfKicks(8)
-                    .setNumberOfSnares(4)
-                    .setTicksPerStaff(17)
+                    .setNumberOfKicks(45)
+                    .setNumberOfSnares(25)
+                    .setTicksPerStaff(64)
+                    .setMeasures(1)
+                    .setRepeats(1)
                     .build("shuffle");
-            ba.setUp();
             ba.execute();
-            ba.toMidi();
         } catch (Exception e){
             System.out.println(e.toString());
         }
-
-
-        /*
-        SlowRoll slowRoll = new SlowRoll("c", -1, 2);
-        slowRoll.setUp();
-        slowRoll.toMidi();
         */
+
+        try{
+            PadsAlgorithm pa = new PadsAlgorithm.Builder().build("slowroll");
+            pa.execute();
+
+
+        } catch (Exception e){
+            System.out.println(e.toString());
+        }
 
     }
 

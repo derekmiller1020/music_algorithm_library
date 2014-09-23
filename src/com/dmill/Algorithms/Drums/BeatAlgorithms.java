@@ -1,5 +1,6 @@
 package com.dmill.Algorithms.Drums;
 
+import com.dmill.Algorithms.Drums.Tools.DrumUtilFunctions;
 import com.dmill.Midi.MidiConverter;
 import com.dmill.Util.Exceptions.DrumException;
 import com.dmill.Util.UtilityFunctions;
@@ -52,7 +53,9 @@ public abstract class BeatAlgorithms {
     protected abstract void usePreset();
 
     //each drum algorithm needs a setUp
-    public abstract void setUp();
+    protected abstract void setUp();
+
+    protected abstract void addToSet();
 
     //and it needs and execute
     public abstract void execute();
@@ -65,7 +68,7 @@ public abstract class BeatAlgorithms {
     }
 
     //each class needs to implement the toMidi method
-    public abstract void toMidi();
+    protected abstract void toMidi();
 
     //this is used by the child class
     protected void toMidi(String fileName){
@@ -86,7 +89,7 @@ public abstract class BeatAlgorithms {
         private int numberOfOpenHats = 0;
         private int ticksPerStaff = 16;
         private int measures = 1;
-        private int repeats = 1;
+        private int repeats = 0;
         private boolean preset = true;
 
         public Builder setNumberOfKicks(int numberOfKicks){
@@ -124,10 +127,10 @@ public abstract class BeatAlgorithms {
             return this;
         }
 
-        public Builder setTicksPerStaff(int ticksPerStaff){
-            int[] allowableTicks = {1, 2, 4, 6, 8, 10, 12, 16, 20, 24, 32};
+        public Builder setTicksPerStaff(int ticksPerStaff) throws DrumException{
+            int[] allowableTicks = {1, 2, 4, 6, 8, 10, 12, 16, 20, 24, 32, 64};
             if (!UtilityFunctions.arraySearch(allowableTicks, ticksPerStaff)){
-                ticksPerStaff = 16;
+                throw new DrumException("You have entered an incorrect tick amount");
             }
             this.ticksPerStaff = ticksPerStaff;
             return this;
@@ -157,7 +160,7 @@ public abstract class BeatAlgorithms {
             };
 
             //make sure some goon didn't try to throw in more beats than ticks per staff
-            if (!UtilityFunctions.tickCatcher(ticksPerStaff, drums)){
+            if (!DrumUtilFunctions.tickCatcher(ticksPerStaff, drums)){
                throw new DrumException("You cannot have more ticks per staff than drum beats");
             } else {
 
@@ -166,6 +169,8 @@ public abstract class BeatAlgorithms {
                         return new ShuffleAlgorithm(this);
                     case "blex":
                         return new BlexAlgorithm(this);
+                    case "tres":
+                        return new TresAlgorithm(this);
                     default:
                         return null;
                 }
