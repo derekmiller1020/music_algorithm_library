@@ -39,6 +39,7 @@ public abstract class PadsAlgorithm {
 
     protected void toMidi(String fileName){
         MidiConverter midiCoverter = new MidiConverter();
+        System.out.println("This is key octave " + keyOctave);
         midiCoverter.convertChords(fullChords, key, keyOctave);
         String todaysDate = new SimpleDateFormat("ddMMyyyy").format(new Date());
         fileName += todaysDate;
@@ -73,6 +74,7 @@ public abstract class PadsAlgorithm {
             if (!UtilityFunctions.allowableOctaves(keyOctave)){
                 throw new PadException("You have entered an invalid keyOctave");
             }
+            this.keyOctave = keyOctave;
             return this;
         }
 

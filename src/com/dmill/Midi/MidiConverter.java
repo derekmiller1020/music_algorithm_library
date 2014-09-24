@@ -52,24 +52,32 @@ public class MidiConverter {
     }
 
     public void convertChords(List<Chords> fullChords, String key, int octave){
+        System.out.println(octave);
+        for (Chords chord : fullChords){
+            System.out.println("chords hitting midi " + chord.getChord());
+        }
         int pitch;
         int channel = 0, velocity = 100;
         fullChords = new MajorScales().chords(key, octave, fullChords);
 
-        //outer loop
+        int space = 0;
+        //outer loop of all chords
         for(int i = 0; i < fullChords.size(); i++){
             //inner loop
             int tick = MidiConverters.convertNoteLengthToMidi(fullChords.get(i).getChordLength());
+            //inside loop of individual notes in chords
             for (int x = 0; x < fullChords.get(i).getChord().size(); x++){
                 pitch = fullChords.get(i).getChord().get(x);
                 try{
-                    noteTrack.insertNote(channel, pitch, velocity, i*tick, tick);
-                    System.out.println(pitch + " " + tick + " " + i*tick);
+                    noteTrack.insertNote(channel, pitch, velocity, space, tick);
+                    System.out.println(pitch + " " + tick + " " + i*space);
                 } catch (Exception e){
                     System.out.println(e.toString());
                 }
-
             }
+            space += tick;
+
+            System.out.println("This is space" + space);
         }
     }
 

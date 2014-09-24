@@ -21,7 +21,15 @@ public class Main {
         */
 
         try{
-            PadsAlgorithm pa = new PadsAlgorithm.Builder().build("slowroll");
+            PadsAlgorithm pa = new PadsAlgorithm.Builder()
+                    .setKey("d")
+                    .setKeyOctave(-2)
+                    .addNoteLength(8)
+                    .setNumberOfNotes(10)
+                    .setRepeats(2)
+                    .setNumberOfOctaves(2)
+                    .build("slowroll")
+                    ;
             pa.execute();
 
 

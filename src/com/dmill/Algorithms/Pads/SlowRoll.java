@@ -11,12 +11,10 @@ public class SlowRoll extends PadsAlgorithm{
             usePreset();
         }
 
-        System.out.println("hit constructor");
 
     }
 
     protected void usePreset(){
-        System.out.println("hits preset");
         if (chordLength.size() == 0){
             chordLength.add(4);
         }
@@ -27,13 +25,11 @@ public class SlowRoll extends PadsAlgorithm{
     }
 
     protected void setUp(){
-        System.out.println("hits setup");
         SlowRollAlgorithm slowRollAlgorithm = new SlowRollAlgorithm(numberOfOctaves, chordLength);
         fullChords = slowRollAlgorithm.chords(numberOfChords, repeats);
     }
 
     protected void toMidi(){
-        System.out.println("hits midi");
         String fileName = "slowRollAlgorithm_";
         super.toMidi(fileName);
     }

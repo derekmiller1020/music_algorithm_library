@@ -21,7 +21,6 @@ public class SlowRollAlgorithm {
 
     public List<Chords> chords(int numberOfChords, int repeats){
         checkNumberOfOctaves();
-        System.out.println("passed octaves");
         List<Chords> fullChords = new ArrayList<>();
         List<Chords> temp = new ArrayList<>();
 
@@ -30,16 +29,12 @@ public class SlowRollAlgorithm {
             chord.setChord(setUpChord());
             chord.setChordLength(setUpLengths(numberOfChords, i));
             temp.add(chord);
-            System.out.println(chord.getChord());
-        }
 
-        System.out.println("passed first chords loop");
+        }
 
         for (int x = -1; x < repeats; x++) {
             fullChords.addAll(temp);
         }
-
-        System.out.println("passed second for loop");
 
         return fullChords;
     }
@@ -48,13 +43,11 @@ public class SlowRollAlgorithm {
         List<Integer> singleChord = new ArrayList<>();
 
         UtilityFunctions.shuffleArray(notes);
-        System.out.println(notes);
         singleChord.add(notes.get(1));
         singleChord.add(notes.get(2));
         singleChord.add(notes.get(0));
         singleChord.add(notes.get(4));
 
-        System.out.println("finished setUp chord");
         return singleChord;
         
     }
@@ -76,10 +69,8 @@ public class SlowRollAlgorithm {
     }
 
     private void setNotes(){
-        System.out.println(numberOfOctaves);
         for(int x = 1; x < 8 * numberOfOctaves; x++){
             notes.add(x);
         }
-        System.out.println(notes);
     }
 }

@@ -58,16 +58,27 @@ public class MajorScales {
 
     private static List<Chords> convertChords(List<Chords> chords, int octaveKey){
 
+        List<Chords> newChords = new ArrayList<>();
+
         for (Chords chord : chords){
+            Chords newChord = new Chords();
             List<Integer> temp = new ArrayList<>();
             for (int i = 0; i < chord.getChord().size(); i++){
+
                 temp.add(majorKeySetup(chord.getChord().get(i), octaveKey));
             }
-            System.out.println(temp);
-            chord.setChord(temp);
+
+            newChord.setChord(temp);
+            newChord.setChordLength(chord.getChordLength());
+            newChords.add(newChord);
+
         }
 
-        return chords;
+        for (Chords stuff: newChords){
+            System.out.println("new chords in town "  + stuff.getChord());
+        }
+
+        return newChords;
     }
 
     //algorithm is 0+2+2+1+2+2+2
@@ -117,8 +128,9 @@ public class MajorScales {
             case 14:
                 majorNote = key +23;
                 break;
-
-
+            case 15:
+                majorNote = key + 24;
+                break;
         }
         return majorNote;
     }
