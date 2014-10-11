@@ -29,7 +29,7 @@ public class UtilityFunctions {
     }
 
     public static boolean allowableKeys(String key){
-        String[] keys = new String[]{"a", "b", "c", "d", "e", "f", "g"};
+        String[] keys = new String[]{"a", "b", "c", "d", "e", "f", "g", "g#"};
         for (String allowableKey : keys){
             if (allowableKey.equals(key)){
                 return true;

@@ -1,6 +1,7 @@
 package com.dmill.Midi;
 
 import com.dmill.Algorithms.Pads.Tools.Chords;
+import com.dmill.Algorithms.Riff.Tools.Notes;
 import com.dmill.Midi.Util.MajorScales;
 import com.dmill.Midi.Util.MidiConverters;
 import com.leff.midi.MidiFile;
@@ -79,6 +80,10 @@ public class MidiConverter {
 
             System.out.println("This is space" + space);
         }
+    }
+
+    public void convertNotes(List<Notes> fullNotes, String key, int octave){
+
     }
 
     //writes to the midi file

@@ -52,7 +52,7 @@ public class MidiConverters {
     }
 
     public static int convertNoteLengthToMidi(int note){
-        return note * 480;
+        return note * 120;
     }
 
 

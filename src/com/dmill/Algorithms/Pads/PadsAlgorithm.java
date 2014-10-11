@@ -39,7 +39,7 @@ public abstract class PadsAlgorithm {
 
     protected void toMidi(String fileName){
         MidiConverter midiCoverter = new MidiConverter();
-        System.out.println("This is key octave " + keyOctave);
+        System.out.println("This is key octave " + keyOctave + " full Chords" + fullChords + " key");
         midiCoverter.convertChords(fullChords, key, keyOctave);
         String todaysDate = new SimpleDateFormat("ddMMyyyy").format(new Date());
         fileName += todaysDate;
@@ -113,6 +113,8 @@ public abstract class PadsAlgorithm {
             switch(algorithm){
                 case "slowroll":
                     return new SlowRoll(this);
+                case "generic":
+                    return new Generic(this);
                 default:
                     return null;
             }

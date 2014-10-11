@@ -10,13 +10,11 @@ public class SlowRoll extends PadsAlgorithm{
         if (preset){
             usePreset();
         }
-
-
     }
 
     protected void usePreset(){
         if (chordLength.size() == 0){
-            chordLength.add(4);
+            chordLength.add(16);
         }
 
         if (numberOfChords == 0){

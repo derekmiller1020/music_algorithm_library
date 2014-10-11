@@ -40,6 +40,8 @@ public class MajorScales {
             case "g":
                 returnKey = 67;
                 break;
+            case "g#":
+                returnKey = 68;
             default:
                 returnKey = 60;
                 break;

@@ -1,21 +1,16 @@
 package com.dmill.Algorithms.Pads.Tools;
 
 
-import com.dmill.Algorithms.Pads.SlowRoll;
 import com.dmill.Util.UtilityFunctions;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SlowRollAlgorithm {
+public class SlowRollAlgorithm extends NotesParent{
 
-    private List<Integer> notes = new ArrayList<>();
-    private int numberOfOctaves;
-    private List<Integer> chordLengths;
-
-    public SlowRollAlgorithm(int numberOfOctaves, List<Integer> chordLengths){
+    public SlowRollAlgorithm(int numberOfOctaves, List<Integer> entityLength){
         this.numberOfOctaves = numberOfOctaves;
-        this.chordLengths = chordLengths;
+        this.entityLength = entityLength;
         setNotes();
     }
 
@@ -52,25 +47,4 @@ public class SlowRollAlgorithm {
         
     }
 
-    private Integer setUpLengths(int numberOfChords, int index){
-        if (chordLengths.size() < numberOfChords){
-            while(chordLengths.size() < numberOfChords){
-                chordLengths.addAll(chordLengths);
-            }
-        }
-
-        return chordLengths.get(index);
-    }
-
-    private void checkNumberOfOctaves(){
-        if (numberOfOctaves < 0 || numberOfOctaves > 2) {
-            this.numberOfOctaves = 1;
-        }
-    }
-
-    private void setNotes(){
-        for(int x = 1; x < 8 * numberOfOctaves; x++){
-            notes.add(x);
-        }
-    }
 }
